@@ -35,7 +35,7 @@ https://www.kaggle.com/code/takuyatokumoto/amp-pdpp-baseline/edit
 * visit_monthの月初から現時点までのupdrs_[1-4]スコア最大値を予測に当てはめる方法
 ## ②
 https://www.kaggle.com/code/takuyatokumoto/baseline-70-train-inference-randomforest
-* 学習の縦幅はvisit_month=0のvisit_idベース➡×（visit_month=3の時のスコアを特徴量にしてるっぽい）
+* 学習の縦幅はvisit_month=0のvisit_idベース ➡ ×（visit_month=3の時のスコアを特徴量にしてるっぽい）
 * 特徴量はprotein, peprtideの存在量をvisit_id単位でgroupbyして統計量(平均、分散..)を利用
 * random forestモデルでgrit serch機能を利用。
 * updrs_[1-4]別に4通りのモデルを作成
