@@ -54,3 +54,79 @@ https://www.kaggle.com/code/takuyatokumoto/simple-linear-model-with-only-clinica
 * コードがごちゃついているのが気になる。モデル構造はシンプルであるが予測性能は良い。特徴量エンジニアリングがメインのコンペの傾向が見える
 ## ⑤
 https://www.kaggle.com/code/takuyatokumoto/using-feature-selection-xgboost-trend/edit
+
+
+# Discussion
+## [Dealing with visits of a patient with NaN proteins](https://www.kaggle.com/competitions/amp-parkinsons-disease-progression-prediction/discussion/403073)
+* 同じ患者のタンパク質やペプチド発現の将来の値が欠落した場合、どのように対処するのが適切でしょうか？(例えば同じ患者（例：Patient_id=55）に対して、ある訪問月（例：visit_month=0）にタンパク質のNPX値があり、その次（visit_month=3）にNPXのNaNがある場合)
+* ➡これといった正解はない。タンパク質やペプチドの表現が可能な後続の月があれば、fill forwardかbackfillのどちらか、もしくは両月間の中央値を求めるという手もあります。
+
+## [Patient-level Time Series Feature Engineering](https://www.kaggle.com/competitions/amp-parkinsons-disease-progression-prediction/discussion/388521)
+
+時系列における特徴量エンジニアリングの方法  
+このコンペでは、1人あたりの時系列測定値（経時的な測定値）を取得します。  
+単純な機能としては、差分ベースの機能（時間の経過に伴う値の変化）をチェックするとよいかもしれません。  
+
+### Group stats features  
+* この特徴量加工は、時系列変数を時間の経過とともに集計する必要がある変換を行うためのもの。
+* グループ（この場合、患者）に沿った傾向を見つけるのに便利です。
+
+```python
+keys = ... 
+val = ...
+df.groupby(keys).transform(lambda x: x.mean())
+df.groupby(keys).transform(lambda x: x.median())
+df.groupby(keys).transform(lambda x: x.std())
+df.groupby(keys).transform(lambda x: x.count())
+df.groupby(keys).transform(lambda x: x.sum())
+```
+### Lag features
+* 時系列の値を一定の時間単位でシフトさせることに基づいています。
+* モデルに情報を追加して、より良い予測をするのに役立ちます。特に、対象変数のラグ値を特徴量として投入し、予測したい場合に有効です。
+
+```python
+keys = ...
+val = ...
+lag = 1
+df.groupby(keys)[val].transform(lambda x: x.shift(lag))
+```
+
+### Rolling Window Stats features
+* この特徴量加工は、ローリングウィンドウを使用した経時的な集計を必要とする変換で、時系列変数を変換するためのもの。
+* 時系列におけるトレンドや季節性を見つけるのに便利
+```python
+keys = ...
+val = ...
+window = 7
+df.groupby(keys)[val].transform(lambda x: x.rolling(window=window, min_periods=3, win_type="triang").mean())
+df.groupby(keys)[val].transform(lambda x: x.rolling(window=window, min_periods=3).std())
+```
+
+### Expanding stats features
+* 累積平均および累積標準偏差を計算
+* ここでのexpanding(2) は、2番目のデータポイントから累積計算を開始することを意味します。
+```python
+keys = ... 
+val = ...
+df.groupby(keys)[val].transform(lambda x: x.expanding(2).mean())
+df.groupby(keys)[val].transform(lambda x: x.expanding(2).std())
+```
+
+### Trend features
+* グループごとに差分（隣接する要素間の差）を計算し特徴量を作成する。
+```python
+keys = ... 
+val = ...
+df.groupby(keys)[val].transform(lambda x: x.diff())
+```
+
+### Exponentially Weighted Average
+* 過去の観測値に対して指数関数的に減衰する重みを付けて平均を計算します。
+* 最新のデータポイントには高い重みが付けられ、古いデータポイントには低い重みが付けられるため、EWAは時系列データの最近の動きをより強調します。
+```python
+keys = ... 
+val = ...
+lag = 1
+alpha=0.95
+df_temp.groupby(keys)[val].transform(lambda x: x.shift(lag).ewm(alpha=alpha).mean())
+```
