@@ -54,7 +54,7 @@ https://www.kaggle.com/code/takuyatokumoto/simple-linear-model-with-only-clinica
 * コードがごちゃついているのが気になる。モデル構造はシンプルであるが予測性能は良い。特徴量エンジニアリングがメインのコンペの傾向が見える
 ## ⑤
 https://www.kaggle.com/code/takuyatokumoto/using-feature-selection-xgboost-trend/edit
-
+* ベースラインに流用
 
 # Discussion
 ## [Dealing with visits of a patient with NaN proteins](https://www.kaggle.com/competitions/amp-parkinsons-disease-progression-prediction/discussion/403073)
@@ -130,3 +130,24 @@ lag = 1
 alpha=0.95
 df_temp.groupby(keys)[val].transform(lambda x: x.shift(lag).ewm(alpha=alpha).mean())
 ```
+
+## [Peptide sequence that may help in detecting PD (from internet)](https://www.kaggle.com/competitions/amp-parkinsons-disease-progression-prediction/discussion/394983)
+
+### Alpha-synuclein
+* α-シヌクレインは、脳内に多く存在するペプチドで、パーキンソン病の特徴的な病理学的特徴であるレビー小体の主要構成要素である。
+* α-シヌクレインをコードするSNCA遺伝子の変異は、家族性のパーキンソン病と関連しています。
+
+### Beta-amyloid
+* ベータアミロイドは、アルツハイマー病に最もよく関連するペプチドですが、パーキンソン病の人の脳内でも発見されています。
+* βアミロイドは、脳内の神経炎症と酸化ストレスに関与していると考えられており、これらはいずれも神経変性につながる可能性があります。
+
+### Urocortin
+* ウロコルチンは、パーキンソン病の動物モデルにおいて、神経保護作用を有することが確認されたペプチドです。
+* ウロコルチンは、パーキンソン病で変性する細胞であるドーパミン作動性ニューロンの炎症、酸化ストレス、アポトーシス（プログラムされた細胞死）を抑えることができます。
+
+### Glucagon-like peptide-1 (GLP-1)
+* GLP-1は、グルコース調節に関与するペプチドホルモンで、パーキンソン病の動物モデルにおいて神経保護作用があることが判明しています。
+* GLP-1は、ミトコンドリア機能を改善し、ドーパミン作動性ニューロンの炎症を抑えることで、神経変性を遅らせたり、予防したりする効果が期待されます。
+
+`これらのトレーニングデータでは、完全な配列は利用できないようです。配列の一部を用いて特徴量を構築することができる`
+
