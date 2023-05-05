@@ -56,6 +56,20 @@ https://www.kaggle.com/code/takuyatokumoto/simple-linear-model-with-only-clinica
 https://www.kaggle.com/code/takuyatokumoto/using-feature-selection-xgboost-trend/edit
 * ベースラインに流用
 
+## [Only Trends](https://www.kaggle.com/code/takuyatokumoto/only-trends)
+* 最適化手法によるLBスコアの改善をトライ
+* template_v2との差分点は `if target == 'updrs_4': pred_month = pred_month.clip(54, None)`で54でクリップしているか？
+* なぜ54なのかは解説されていない
+
+## [PDPP Quadratic Trends](https://www.kaggle.com/code/ambrosm/pdpp-quadratic-trends)
+* 
+
+## [Explain Dataset, Test API, Cross-Validation Tips](https://www.kaggle.com/code/vitalykudelya/explain-dataset-test-api-cross-validation-tips)
+* 
+* 
+
+
+
 # Discussion
 ## [Dealing with visits of a patient with NaN proteins](https://www.kaggle.com/competitions/amp-parkinsons-disease-progression-prediction/discussion/403073)
 * 同じ患者のタンパク質やペプチド発現の将来の値が欠落した場合、どのように対処するのが適切でしょうか？(例えば同じ患者（例：Patient_id=55）に対して、ある訪問月（例：visit_month=0）にタンパク質のNPX値があり、その次（visit_month=3）にNPXのNaNがある場合)
