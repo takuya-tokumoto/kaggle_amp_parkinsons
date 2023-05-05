@@ -29,30 +29,28 @@
 * https://www.kaggle.com/code/craigmthomas/amp-eda-models
 * https://www.kaggle.com/code/takuyatokumoto/amp-eda-models/edit
 # ベースラインの構築
-## ①
-https://www.kaggle.com/code/takuyatokumoto/amp-pdpp-baseline/edit
+## [AMP® - PDPP - Baseline](https://www.kaggle.com/code/takuyatokumoto/amp-pdpp-baseline/)
 * 学習データ'train_clinical_data'のvisit_monthとupdrs_[1-4]の情報からベースラインを作成
 * visit_monthの月初から現時点までのupdrs_[1-4]スコア最大値を予測に当てはめる方法
-## ②
-https://www.kaggle.com/code/takuyatokumoto/baseline-70-train-inference-randomforest
+## [[Baseline : 70]| Train + Inference RandomForest](https://www.kaggle.com/code/takuyatokumoto/baseline-70-train-inference-randomforest)
 * 学習の縦幅はvisit_month=0のvisit_idベース ➡ ×（visit_month=3の時のスコアを特徴量にしてるっぽい）
 * 特徴量はprotein, peprtideの存在量をvisit_id単位でgroupbyして統計量(平均、分散..)を利用
 * random forestモデルでgrit serch機能を利用。
 * updrs_[1-4]別に4通りのモデルを作成
-## ③
-https://www.kaggle.com/code/takuyatokumoto/eda-linearregression/edit
+## [EDA+LinearRegression](https://www.kaggle.com/code/takuyatokumoto/eda-linearregression)
 * proteinとpeptideの存在量をprotein/peptideID単位で横持ちに変換し、特徴量として作成
 * モデルはLinearRegressionとxggregressのアンサンブル
 * updrs_[1-4]別に4通りのモデルを作成
 * max_depth=3とかなり浅い構造
 * score 58.4
-## ④
-https://www.kaggle.com/code/takuyatokumoto/simple-linear-model-with-only-clinical-data/edit
+
+## [Simple Linear model with only clinical data](https://www.kaggle.com/code/takuyatokumoto/simple-linear-model-with-only-clinical-data)
 * テストでは薬の服用状況が確認できないので？（要確認）CVも服用状況をunkownに置換して評価
 * visit_monthとupd23b_clinical_state_on_medication軸でgroupbyして特徴量を加工
 * LinearSVR/PoissonRegressor/SVR/LinearRegression/LGBMRegressorをアンサンブルしたモデルを利用
 * コードがごちゃついているのが気になる。モデル構造はシンプルであるが予測性能は良い。特徴量エンジニアリングがメインのコンペの傾向が見える
-## ⑤
+
+## [Using Feature selection, XGBoost, Trend](https://www.kaggle.com/code/takuyatokumoto/using-feature-selection-xgboost-trend)
 https://www.kaggle.com/code/takuyatokumoto/using-feature-selection-xgboost-trend/edit
 * ベースラインに流用
 
@@ -64,7 +62,7 @@ https://www.kaggle.com/code/takuyatokumoto/using-feature-selection-xgboost-trend
 ## [PDPP Quadratic Trends](https://www.kaggle.com/code/ambrosm/pdpp-quadratic-trends)
 * 
 
-## [Explain Dataset, Test API, Cross-Validation Tips](https://www.kaggle.com/code/vitalykudelya/explain-dataset-test-api-cross-validation-tips)
+## [Explain Dataset, Test API, Cross-Validation Tips](https://www.kaggle.com/code/takuyatokumoto/explain-dataset-test-api-cross-validation-tips)
 * 
 * 
 
