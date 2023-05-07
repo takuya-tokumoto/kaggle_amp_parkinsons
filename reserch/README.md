@@ -66,7 +66,9 @@ https://www.kaggle.com/code/takuyatokumoto/using-feature-selection-xgboost-trend
 * 
 * 
 
-
+## [Protein NPX Groups + Trend](https://www.kaggle.com/code/vitalykudelya/protein-npx-groups-trend/notebook)
+* タンパク質のNPX値をいくつかのグループに分け、各グループの月次トレンド予測から最適なシフトを求める。
+* 月次推移と対応するNPXグループシフトからの予測値の合計
 
 # Discussion
 ## [Dealing with visits of a patient with NaN proteins](https://www.kaggle.com/competitions/amp-parkinsons-disease-progression-prediction/discussion/403073)
