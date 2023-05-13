@@ -7,6 +7,10 @@
 
 ## 提出物について
 ### 評価方法
+#### ルール
+* 5 submits/day
+* 最終的に2候補選択して最終順位を決定する
+
 #### 評価関数
 > Symmetric mean absolute percentage error(SMAPE)  
 
@@ -28,15 +32,18 @@
 ## 参照
 * https://www.kaggle.com/code/craigmthomas/amp-eda-models
 * https://www.kaggle.com/code/takuyatokumoto/amp-eda-models/edit
+
 # ベースラインの構築
 ## [AMP® - PDPP - Baseline](https://www.kaggle.com/code/takuyatokumoto/amp-pdpp-baseline/)
 * 学習データ'train_clinical_data'のvisit_monthとupdrs_[1-4]の情報からベースラインを作成
 * visit_monthの月初から現時点までのupdrs_[1-4]スコア最大値を予測に当てはめる方法
+
 ## [[Baseline : 70]| Train + Inference RandomForest](https://www.kaggle.com/code/takuyatokumoto/baseline-70-train-inference-randomforest)
 * 学習の縦幅はvisit_month=0のvisit_idベース ➡ ×（visit_month=3の時のスコアを特徴量にしてるっぽい）
 * 特徴量はprotein, peprtideの存在量をvisit_id単位でgroupbyして統計量(平均、分散..)を利用
 * random forestモデルでgrit serch機能を利用。
 * updrs_[1-4]別に4通りのモデルを作成
+
 ## [EDA+LinearRegression](https://www.kaggle.com/code/takuyatokumoto/eda-linearregression)
 * proteinとpeptideの存在量をprotein/peptideID単位で横持ちに変換し、特徴量として作成
 * モデルはLinearRegressionとxggregressのアンサンブル
@@ -45,13 +52,18 @@
 * score 58.4
 
 ## [Simple Linear model with only clinical data](https://www.kaggle.com/code/takuyatokumoto/simple-linear-model-with-only-clinical-data)
-* テストでは薬の服用状況が確認できないので？（要確認）CVも服用状況をunkownに置換して評価
+* テストでは薬の服用状況が確認できないので？ CVも服用状況をunkownに置換して評価
 * visit_monthとupd23b_clinical_state_on_medication軸でgroupbyして特徴量を加工
-* LinearSVR/PoissonRegressor/SVR/LinearRegression/LGBMRegressorをアンサンブルしたモデルを利用
 * コードがごちゃついているのが気になる。モデル構造はシンプルであるが予測性能は良い。特徴量エンジニアリングがメインのコンペの傾向が見える
+* LinearSVR/PoissonRegressor/SVR/LinearRegression/LGBMRegressorをアンサンブルしたモデルを利用➡✕（コメントアウトしてる）
+  * 以下手法のコードが存在、スクリプトではLightGBMのみ用いて学習させてるっぽい
+    * データをスケーリングするRobustScalerと、線形サポートベクトル回帰（Linear Support Vector Regression）を実行するLinearSVRからなるパイプライン
+    * データをスケーリングするMinMaxScalerと、ポアソン回帰を実行するPoissonRegressorからなるパイプライン
+    * データをスケーリングするRobustScalerと、サポートベクトル回帰（Support Vector Regression）を実行するSVRからなるパイプライン
+    * データをスケーリングするStandardScalerと、線形回帰を実行するLinearRegressionからなるパイプライン
+    * LightGBMを使用する回帰モデル
 
 ## [Using Feature selection, XGBoost, Trend](https://www.kaggle.com/code/takuyatokumoto/using-feature-selection-xgboost-trend)
-https://www.kaggle.com/code/takuyatokumoto/using-feature-selection-xgboost-trend/edit
 * ベースラインに流用
 
 ## [Only Trends](https://www.kaggle.com/code/takuyatokumoto/only-trends)
@@ -60,14 +72,11 @@ https://www.kaggle.com/code/takuyatokumoto/using-feature-selection-xgboost-trend
 * なぜ54なのかは解説されていない
 
 ## [PDPP Quadratic Trends](https://www.kaggle.com/code/ambrosm/pdpp-quadratic-trends)
-* 
 
 ## [Explain Dataset, Test API, Cross-Validation Tips](https://www.kaggle.com/code/takuyatokumoto/explain-dataset-test-api-cross-validation-tips)
-* 
-* 
 
 ## [Protein NPX Groups + Trend](https://www.kaggle.com/code/vitalykudelya/protein-npx-groups-trend/notebook)
-* タンパク質のNPX値をいくつかのグループに分け、各グループの月次トレンド予測から最適なシフトを求める。
+* あるタンパク質（O15240）のNPX値をいくつかのグループに分け、各グループの月次トレンド予測から最適なシフトを求める。
 * 月次推移と対応するNPXグループシフトからの予測値の合計
 
 # Discussion
